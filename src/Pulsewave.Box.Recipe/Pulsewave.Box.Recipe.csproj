@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Project configuration">
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Label="NuGet information">
+    <Title>$(MSBuildProjectName)</Title>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+		<FileVersion>$(Version)</FileVersion>
+    <Authors>Alexandre Beauchamp</Authors>
+    <Company>Pulsewave</Company>
+    <Description>Re-usable cake scripts for Pulsewave.Box NuGets.</Description>
+
+    <PackageId>$(MSBuildProjectName)</PackageId>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/beauchama/$(MSBuildProjectName.ToLower())</PackageProjectUrl>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReleaseNotes>https://github.com/beauchama/$(MSBuildProjectName.ToLower())/releases/latest</PackageReleaseNotes>
+		<PackageTags>Cake;Box;Build;Automation;Recipe;cake-recipe;cake-build;script</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup Label="assets">
+		<None Include="..\..\readme.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+		<None Include="..\..\assets\images\logo.png" Pack="true" PackagePath="\" />
+		<Folder Include="content\*" Pack="true" PackagePath="\content" />
+	</ItemGroup>
+
+  <PropertyGroup Label="nuget configuration">
+		<IsPackable>true</IsPackable>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Label="deterministic build" Condition="'$(TF_BUILD)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+
+  <ItemGroup Label="source link">
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Label="analyzer files">
+		<AdditionalFiles Include="$(MSBuildStartupDirectory)\stylecop.json" Link="stylecop.json" />
+		<None Include="$(MSBuildStartupDirectory)\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+  <ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="AsyncFixer" Version="1.6.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.53.0.62665">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="content\" />
+  </ItemGroup>
+</Project>
