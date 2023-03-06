@@ -1,32 +1,27 @@
-#load "./src/Pulsewave.Box.Recipe/content/box.cake"
+// Copyright (c) Wave. All rights reserved.
+// The source code is licensed under MIT License
 
-string target = Context.Argument<string>("run");
+#load "./src/Pulsewave.Box.Recipe/content/build.cake"
 
-Task("A")
-    .Description("Alpha")
-    .IsDependentOn("B")
-    .Does(()=>{});
+Setup(context =>
+{
+    string project = context.Argument<string>("project");
 
-Task("B")
-    .Description("Beta")
-    .IsDependentOn("C")
-    .Does(()=>{});
+    FilePathCollection projectPaths = context.HasArgument("all")
+        ? context.GetFiles("./**/*.csproj")
+        : context.GetFiles("./src/**/*.csproj");
 
-Task("C")
-    .Description("Charlie")
-    .IsDependentOn("D")
-    .Does(()=>{});
+    Box box = new()
+    {
+        Configuration = context.Argument("configuration", Configuration.Release).ToString(),
+        NuGet = new NuGet(project, context),
+        StepCounter = new StepCounter(context),
+        Paths = projectPaths
+    };
 
-Task("D")
-    .Description("Delta")
-    .Does(()=>{});
+    Information($"Configuring {box.NuGet.Name}-{box.NuGet.Version} with configuration: {box.Configuration}\n");
 
-Task("E")
-    .Description("Echo")
-    .Does(()=>{});
+    return box;
+});
 
-Task("F")
-    .Description("Foxtrot")
-    .Does(()=>{});
-
-RunTarget("A");
+RunTarget(Argument<string>("run"));

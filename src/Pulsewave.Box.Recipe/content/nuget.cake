@@ -1,24 +1,22 @@
 // Copyright (c) Wave. All rights reserved.
 // The source code is licensed under MIT License
 
-#load "./Configuration.cake"
-
 /// <summary>
-/// Represent a Box NuGet with his information.
+/// Represents NuGet package metadata
 /// </summary>
-public sealed class BoxNuGet
+public sealed class NuGet
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="BoxNuGet"/> class.
+    /// Initializes a new instance of the <see cref="NuGet"/> class.
     /// </summary>
+    /// <param name="projectName">The project name.</param>
     /// <param name="context">The <see cref="ICakeContext"/>.</param>
-    public BoxNuGet(ICakeContext context)
+    public NuGet(string projectName, ICakeContext context)
     {
-        Path = context.Argument<FilePath>("nuget");
+        Path = $"./src/{projectName}/{projectName}.csproj";
 
-        Name = context.XmlPeek(Path, "//PackageId");
+        Name = projectName;
         Version = context.XmlPeek(Path, "//Version");
-        Configuration = context.Argument("configuration", Configuration.Release);
     }
 
     /// <summary>
@@ -30,11 +28,6 @@ public sealed class BoxNuGet
     /// Gets the Box NuGet version.
     /// </summary>
     public string Version { get; }
-
-    /// <summary>
-    /// Gets the Box NuGet configuration.
-    /// </summary>
-    public Configuration Configuration { get; }
 
     /// <summary>
     /// Gets the NuGet path.
