@@ -16,28 +16,40 @@ TaskSetup<Box>((context, box) =>
 /// <summary>
 /// Represents the configuration for a box project
 /// </summary>
-/// <param name="NuGet">The NuGet package metadata.</param>
-/// <param name="Configuration">The configuration.</param>
-/// <param name="StepCounter">The counter for steps.</param>
-public sealed record class Box
+public sealed class Box
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Box"/> class.
+    /// </summary>
+    /// <param name="name">The box name.</param>
+    /// <param name="context">The context of <see cref="ISetupContext"/>.</param>
+    public Box(string name, ISetupContext context)
+    {
+        NuGet = new NuGet(name, context);
+        Configuration = context.Argument("configuration", Configuration.Release);
+        StepCounter = new StepCounter(context);
+        Paths = context.HasArgument("all")
+            ? context.GetFiles("./**/*.csproj")
+            : context.GetFiles("./src/**/*.csproj");
+    }
+
     /// <summary>
     /// Gets the nuget package metadata
     /// </summary>
-    public NuGet NuGet { get; init; }
+    public NuGet NuGet { get; }
 
     /// <summary>
     /// Gets the box configuration
     /// </summary>
-    public string Configuration { get; init; }
+    public Configuration Configuration { get; }
 
     /// <summary>
     /// Gets the step counter
     /// </summary>
-    public StepCounter StepCounter { get; init; }
+    public StepCounter StepCounter { get; }
 
     /// <summary>
     /// Gets box project paths
     /// </summary>
-    public FilePathCollection Paths { get; init; }
+    public FilePathCollection Paths { get; }
 }

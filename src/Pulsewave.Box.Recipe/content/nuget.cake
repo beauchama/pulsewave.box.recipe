@@ -16,7 +16,7 @@ public sealed class NuGet
         Path = $"./src/{projectName}/{projectName}.csproj";
 
         Name = projectName;
-        Version = context.XmlPeek(Path, "//Version");
+        Version = GetVersion(context);
     }
 
     /// <summary>
@@ -27,10 +27,22 @@ public sealed class NuGet
     /// <summary>
     /// Gets the Box NuGet version.
     /// </summary>
-    public string Version { get; }
+    public SemVersion Version { get; }
 
     /// <summary>
     /// Gets the NuGet path.
     /// </summary>
     public FilePath Path { get; }
+
+    private SemVersion GetVersion(ICakeContext context)
+    {
+        string version = context.XmlPeek(Path, "//Version");
+
+        if (context.HasArgument("beta"))
+            version = $"{version}-beta.{DateTime.Now:yyyyMMddHHmmss}";
+
+        SemVersion.TryParse(version, out var parsedVersion);
+
+        return parsedVersion;
+    }
 }

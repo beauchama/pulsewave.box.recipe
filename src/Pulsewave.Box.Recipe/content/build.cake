@@ -26,7 +26,7 @@ Task("build").Description("Build box").IsDependentOn("restore").Does<Box>(box =>
 {
     DotNetBuildSettings settings = new()
     {
-        Configuration = box.Configuration,
+        Configuration = box.Configuration.ToString(),
         NoRestore = true
     };
 
