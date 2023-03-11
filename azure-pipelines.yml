@@ -1,0 +1,34 @@
+name: Pulsewave.Box.Recipe.$(Build.SourceBranchName).$(Date:yyyyMMdd).$(Rev:r)
+
+pool:
+  name: 'Hashira'
+  demands:
+    - agent.name -equals 'Tengen'
+
+pr:
+  - main
+  - develop
+
+trigger:
+  - main
+  - develop
+
+stages:
+  - stage: Building
+    displayName: Building
+    jobs:
+      - job: Runner
+        displayName: 'Runner'
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Restore tools'
+            inputs:
+              command: custom
+              custom: tool
+              arguments: restore
+          - task: DotNetCoreCLI@2
+            displayName: 'Build'
+            inputs:
+              command: custom
+              custom: tool
+              arguments: main.cake --run build
