@@ -22,7 +22,7 @@ Task("restore").Description("Restore box").DoesForEach<Box, FilePath>(box => box
     Information(new string('-', 40));
 });
 
-Task("build").Description("Build box").IsDependentOn("restore").Does<Box>(box =>
+Task("build").Description("Build box").IsDependentOn("clean").IsDependentOn("restore").Does<Box>(box =>
 {
     DotNetBuildSettings settings = new()
     {
