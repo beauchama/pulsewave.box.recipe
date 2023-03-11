@@ -2,7 +2,7 @@
 // The source code is licensed under MIT License
 
 /// <summary>
-/// Represents NuGet package metadata
+/// Represents NuGet package metadata.
 /// </summary>
 public sealed class NuGet
 {

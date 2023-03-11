@@ -14,7 +14,7 @@ TaskSetup<Box>((context, box) =>
 });
 
 /// <summary>
-/// Represents the configuration for a box project
+/// Represents the configuration for a box project.
 /// </summary>
 public sealed class Box
 {
@@ -34,22 +34,22 @@ public sealed class Box
     }
 
     /// <summary>
-    /// Gets the nuget package metadata
+    /// Gets the nuget package metadata.
     /// </summary>
     public NuGet NuGet { get; }
 
     /// <summary>
-    /// Gets the box configuration
+    /// Gets the box configuration.
     /// </summary>
     public Configuration Configuration { get; }
 
     /// <summary>
-    /// Gets the step counter
+    /// Gets the step counter.
     /// </summary>
     public StepCounter StepCounter { get; }
 
     /// <summary>
-    /// Gets box project paths
+    /// Gets box project paths.
     /// </summary>
     public FilePathCollection Paths { get; }
 }

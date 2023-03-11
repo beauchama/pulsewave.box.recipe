@@ -40,7 +40,7 @@ Task("build").Description("Build box").IsDependentOn("restore").Does<Box>(box =>
 });
 
 /// <summary>
-/// Clean all folders based on a glob pattern
+/// Clean all folders based on a glob pattern.
 /// </summary>
 /// <param name="pattern">The pattern to search folder to be cleaned.</param>
 public void Clean(GlobPattern pattern)
