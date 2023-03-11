@@ -3,7 +3,7 @@ name: Pulsewave.Box.Recipe.$(Build.SourceBranchName).$(Date:yyyyMMdd).$(Rev:r)
 pool:
   name: 'Hashira'
   demands:
-    - agent.name -equals 'Tengen'
+    - agent.name -equals Tengen
 
 pr:
   - main
