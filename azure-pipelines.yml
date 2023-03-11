@@ -30,5 +30,5 @@ stages:
             displayName: 'Build'
             inputs:
               command: custom
-              custom: tool
+              custom: cake
               arguments: main.cake --run build
