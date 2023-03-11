@@ -2,3 +2,4 @@
 // The source code is licensed under MIT License
 
 #load "./build.cake"
+#load "./test.cake"
