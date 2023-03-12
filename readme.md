@@ -34,41 +34,26 @@ Setup(context =>
 RunTarget(Argument<string>("run"));
 
 ```
-### Execute the script
+### Commands
 
 `dotnet cake main.cake --run [command] --[options]`
 
-### build.cake
-
-This script permit to restore/build the project.
-
-#### clean
-
-`dotnet cake main.cake --run clean`
-
-This command permit to cleanup folders. When running this command it will clean TestResults folder.
-
-#### restore
-
-`dotnet cake main.cake --run restore`
-
-This command execute `dotnet restore` for the project. By default it will restore the projet which was given in the setup.
-
-#### build
-
-This command execute `dotnet build` for the project. By default it will build the projet which was given in the setup.
-
-This commande will execute his dependencies before executing himself which are
-* clean
-* restore
+| command   | description                                                                                               |
+| :-------: | :-------------------------------------------------------------------------------------------------------- |
+| `clean`   | Cleanup TestResults folder.                                                                               |
+| `restore` | Execute `dotnet restore` for the current project.                                                         | 
+| `build`   | Execute `dotnet build` for the current project. It execute `clean` and `restore` before executing `build` |
+| `test`    | Execute `dotnet test` for all test projects. It execute `build` before executing `test`                   |
 
 #### options
 
-all options to be executed with the executed command
-* `--all`: Search all csproj in the folder. Use this options if you need to restore/build all csproj.
-* `--clean`: Cleanup the bin and obj folders
-* `--configuration`: Set the configuration for the project. By default is Release
-* `--beta`: Add metadata on the version: `.beta-yyyyMMddHHmmss`
+| options         | description                                                                  | values             |
+| :-------------: | :--------------------------------------------------------------------------- | :----------------: |
+| `all`           | Search all csproj in the folder.                                             |                    |
+| `clean`         | Cleanup the bin and obj folders                                              |                    |
+| `configuration` | Set the configuration for the project. Default value: `Release`              | `Release`, `Debug` |
+| `beta`          | Create a beta version for the project. Default value: `.beta-yyyyMMddHHmmss` |                    |
+| `code-coverage` | Generate a code coverage report.                                             |                    |
 
 [main-build]: https://img.shields.io/azure-devops/build/pulsewave/box/1/main?label=main%20build
 [develop-build]: https://img.shields.io/azure-devops/build/wavetechno/box/7/develop
